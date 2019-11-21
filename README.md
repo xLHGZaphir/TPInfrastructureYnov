@@ -11,3 +11,5 @@ Nous avons choisi de créer une infrastructure contenant :
   De plus, des sauvegardes sont configurées sur les serveurs de fichiers au cas ou. 
   
   
+  test
+  
