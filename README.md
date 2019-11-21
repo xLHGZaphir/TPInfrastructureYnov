@@ -10,6 +10,3 @@ Nous avons choisi de créer une infrastructure contenant :
   Cette infrastructure contient donc quatre serveurs, les deux netbox se synchronisent, les deux serveurs de fichiers aussi.
   De plus, des sauvegardes sont configurées sur les serveurs de fichiers au cas ou. 
   
-  
-  test
-  
