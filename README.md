@@ -7,7 +7,9 @@ Nous avons choisi de créer une infrastructure contenant :
 
   - Netbox (redondé) deployer automatiquement le monitoring d'un nouveau poste
   - Serveur de fichiers (redondé)
-  - Création d'un ticket automatique sur un hôte en car de problème. 
+  - Création d'un ticket automatique en cas de problème sur un hôte. 
+  
+  Inventaire: 
   
   Cette infrastructure contient donc quatre serveurs, les deux netbox se synchronisent, les deux serveurs de fichiers aussi.
   De plus, des sauvegardes sont configurées sur les serveurs de fichiers au cas ou. 
@@ -16,7 +18,7 @@ Pour la synchronisation entre les hosts nous allons utiliser rsync.
 
 MCO = maintient en condition opérationnelle 
 
-Monitoring
+Monitoring 
 
 fichier start infra 
 
