@@ -6,6 +6,7 @@ Le but est de déployer une infrastructure Open source via des outils comme Vagr
 Nous avons choisi de créer une infrastructure contenant : 
   - Netbox (redondé) 
   - Serveur de fichiers (redondé)
+  - Serveur ticketing + gestion parc IT (GLPI + fusion agent deploiemen auto)
   
   Cette infrastructure contient donc quatre serveurs, les deux netbox se synchronisent, les deux serveurs de fichiers aussi.
   De plus, des sauvegardes sont configurées sur les serveurs de fichiers au cas ou. 
