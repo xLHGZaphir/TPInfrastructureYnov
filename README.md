@@ -13,3 +13,14 @@ Nous avons choisi de créer une infrastructure contenant :
   
 Pour la synchronisation nous allons utiliser rsync.
 
+MCO = maintient en condition opérationnelle 
+
+Monitoring
+
+fichier start infra 
+
+les différentes procédures
+
+sauvegardes -- script bash
+
+wiki ? -> pour le maintien de la solution 
