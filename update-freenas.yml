@@ -1,0 +1,30 @@
+---
+- hosts: freenas
+  remote_user: root
+  vars:
+	ansible_python_interpreter: /usr/local/bin/python
+
+  tasks:
+  - name: check packages for updates
+	shell: freenas-update -v check
+	register: updates
+	failed_when: "updates.rc != 1"
+	changed_when: false
+	ignore_errors: yes
+
+  - when: "updates.stdout != 'No updates available'"
+	block:
+	  - name: update server
+		shell: freenas-update --reboot update
+
+	  - name: wait for server to update and reboot
+		wait_for_connection:
+		  timeout: 600
+		  delay: 120
+		register: reboot_result
+
+	  - name: reboot time
+		debug:
+		  msg: "The system updated and rebooted in {{ reboot_result.elapsed }} seconds."
+
+
