@@ -2,7 +2,6 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-
   config.vm.box = "centos/7"
   config.vm.synced_folder "./", "/vagrant"
 
@@ -44,38 +43,48 @@ end
     machine1.vm.network "public_network", bridge: "en0"
     machine1.vm.provision "shell", inline: <<-SHELL
     yum update -y
+    yum install -y ansible
     SHELL
+   #config.vm.provision "ansible" do |ansible|
+   #machine1.playbook = "centos7-update.yml"
     end
+#end
+#  config.vm.define "machine2" do |machine2|
+#    machine2.vm.box = "Microsoft/EdgeOnWindows10"
+#    machine2.vm.box_version = "1.0"
+#    config.vm.provision "ansible" do |ansible|
+#    machine2.playbook = "W7-update.yml"
+#    machine2.vm.network "public_network", bridge: "en0"
+#    machine2.vm.provider "virtualbox" do |vb|
+#      vb.gui = false
+#      vb.memory = "2048"
+#    end
+#end
 
-  config.vm.define "machine2" do |machine2|
-    machine2.vm.box = "centos/7"
-    machine2.vm.box_version = "1905.1"
-    machine2.vm.network "public_network", bridge: "en0"
-    machine2.vm.provision "shell", inline: <<-SHELL
-    yum update -y
-    SHELL
-    end
-
-  config.vm.define "machine3" do |machine3|
-    machine3.vm.box = "centos/7"
-    machine3.vm.box_version = "1905.1"
-    machine3.vm.network "public_network", bridge: "en0"
-    machine3.vm.provision "shell", inline: <<-SHELL
-    yum update -y
-    SHELL
-    end
-
- config.vm.define "freenas" do |freenas|
-    freenas.vm.box = "robuyo/freenas112"
-    freenas.vm.box_version = "1"
-   # freenas.vm.hostname = "freenas"
-    freenas.vm.network "public_network", bridge: "en0"
-    freenas.vm.provision "shell", inline: <<-SHELL
-    yum update -y
-    SHELL
-    freenas.vm.provider "virtualbox" do |vb|
+   config.vm.define "glpi" do |glpi|
+    glpi.vm.box = "adurand16000/GLPI-9.4.4"
+    glpi.vm.box_version = "9.4.4.1"
+    glpi.vm.network "public_network", bridge: "en0"
+    glpi.vm.provider "virtualbox" do |vb|
       vb.gui = false
       vb.memory = "2048"
     end
 end
+
+ config.vm.define "freenas" do |freenas|
+    freenas.vm.box = "robuyo/freenas112"
+    freenas.vm.box_version = "1"
+    freenas.vm.network "public_network", bridge: "en0"
+    freenas.vm.provision "shell", inline: <<-SHELL
+    yum update -y
+    yum install -y ansible
+    SHELL
+    #config.vm.provision "ansible" do |ansible|
+    #ansible.playbook = "update-freenas.yml"
+    freenas.vm.provider "virtualbox" do |vb|
+      vb.gui = false
+      vb.memory = "2048"
+    end
+end 
 end
+
