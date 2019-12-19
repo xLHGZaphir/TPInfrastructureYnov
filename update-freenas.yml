@@ -1,19 +1,18 @@
----
 - hosts: freenas
   remote_user: root
   vars:
-	ansible_python_interpreter: /usr/local/bin/python
+  - ansible_python_interpreter: /usr/local/bin/python
 
   tasks:
   - name: check packages for updates
-	shell: freenas-update -v check
-	register: updates
-	failed_when: "updates.rc != 1"
-	changed_when: false
-	ignore_errors: yes
+    shell: freenas-update -v check
+    register: updates
+    failed_when: "updates.rc != 1"
+    changed_when: false
+    ignore_errors: yes
 
   - when: "updates.stdout != 'No updates available'"
-	block:
+    block:
 	  - name: update server
 		shell: freenas-update --reboot update
 
