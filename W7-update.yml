@@ -1,0 +1,57 @@
+- name: Install all security, critical, and rollup updates without a scheduled task
+  win_updates:
+    category_names:
+      - SecurityUpdates
+      - CriticalUpdates
+      - UpdateRollups
+
+- name: Install only security updates as a scheduled task for Server 2008
+  win_updates:
+    category_names: SecurityUpdates
+    use_scheduled_task: yes
+
+- name: Search-only, return list of found updates (if any), log to C:\ansible_wu.txt
+  win_updates:
+    category_names: SecurityUpdates
+    state: searched
+    log_path: C:\ansible_wu.txt
+
+- name: Install all security updates with automatic reboots
+  win_updates:
+    category_names:
+    - SecurityUpdates
+    reboot: yes
+
+- name: Install only particular updates based on the KB numbers
+  win_updates:
+    category_name:
+    - SecurityUpdates
+    whitelist:
+    - KB4056892
+    - KB4073117
+
+- name: Exclude updates based on the update title
+  win_updates:
+    category_name:
+    - SecurityUpdates
+    - CriticalUpdates
+    blacklist:
+    - Windows Malicious Software Removal Tool for Windows
+    - \d{4}-\d{2} Cumulative Update for Windows Server 2016
+
+# One way to ensure the system is reliable just after a reboot, is to set WinRM to a delayed startup
+- name: Ensure WinRM starts when the system has settled and is ready to work reliably
+  win_service:
+    name: WinRM
+    start_mode: delayed
+
+# Optionally, you can increase the reboot_timeout to survive long updates during reboot
+- name: Ensure we wait long enough for the updates to be applied during reboot
+  win_updates:
+    reboot: yes
+    reboot_timeout: 3600
+
+# Search and download Windows updates
+- name: Search and download Windows updates without installing them
+  win_updates:
+    state: downloaded
